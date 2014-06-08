@@ -31,9 +31,10 @@ define([
     };
     
     var socketUrl = 'http://localhost:1337/agentsocket';
-    if(window.document.location.port === '80') {
-      socketUrl = 'https://'+window.document.location.hostname+':8443/agentsocket';
+    if(window.document.location.port === '') {
+      socketUrl = window.document.location.protocol+'//'+window.document.location.hostname+':8443/agentsocket';
     }
+    console.log('Socket URL: ', socketUrl);
     var socket = io.connect(socketUrl, {
       query: 'clientType=client'
     });
@@ -43,7 +44,7 @@ define([
     socket.on('disconnect', function () {
       App.vent.trigger('waker:disconnect');
     });
-    socket.on('signal:sent', function (data) {
+    socket.on('signal:sent', function () {
       App.vent.trigger('waker:signal:send');
     });
     
