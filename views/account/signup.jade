@@ -1,0 +1,114 @@
+extends ../home_layout
+block head
+  title Create Account
+
+block body
+  .account-page
+    .ui.one.column.page.grid
+      .row
+        .column
+          .ui.green.segment
+            .row
+              h2.ui.header.thin Sign up
+                .sub.header
+                  | for a BaconPi account.
+            if errors
+              .row
+                .ui.error.message
+                  ul
+                    each error in errors
+                      li=error
+            .row
+              form(method="POST").ui.form.v-space
+                .field
+                  label Name
+                  .ui.left.labeled.icon.input
+                    input(type="text" name="name" placeholder="Please enter your name, bruh." value="Jeff Hansen")
+                    i.user.icon
+                    .ui.corner.label
+                      i.icon.asterisk
+                .field
+                  label Email
+                  .ui.left.labeled.icon.input
+                    input(type="text" name="email" placeholder="Email address used for logging in... bruh" value="jeffijoe@hotmail.com")
+                    i.mail.icon
+                    .ui.corner.label
+                      i.icon.asterisk
+                .field
+                  label Password
+                  .ui.left.labeled.icon.input
+                    input(type="password" name="password" placeholder="Password... bruh (okay I'll stop)" value="test123123")
+                    i.lock.icon
+                    .ui.corner.label
+                      i.icon.asterisk
+                .field
+                  label Repeat Password
+                  .ui.left.labeled.icon.input
+                    input(type="password" name="password-again" placeholder="Repeat your password. You know this by now..                bruh" value="test123123")
+                    i.lock.icon
+                    .ui.corner.label
+                      i.icon.asterisk
+              input(type="submit" id="submit" value="Sign up").ui.blue.submit.button
+block pagescripts
+  script(type="text/javascript").
+    $('.ui.form')
+      .form({
+        name: {
+          identifier  : 'name',
+          rules: [
+            {
+              type   : 'empty',
+              prompt : 'Please enter your name'
+            }
+          ]
+        },
+        email: {
+          identifier : 'email',
+          rules: [
+            {
+              type   : 'empty',
+              prompt : 'Please enter your email.'
+            },
+            {
+              type   : 'email',
+              prompt : 'Yeah, how about we try that again..'
+            }
+          ]
+        },
+        password: {
+          identifier : 'password',
+          rules: [
+            {
+              type   : 'empty',
+              prompt : 'Please enter a password'
+            },
+            {
+              type   : 'length[6]',
+              prompt : 'Your password must be at least 6 characters'
+            }
+          ]
+        },
+        passwordAgain: {
+          identifier : 'password-again',
+          rules: [
+            {
+              type   : 'empty',
+              prompt : 'Please enter your password again'
+            },
+            {
+              type   : 'length[6]',
+              prompt : 'Your password must be at least 6 characters'
+            },
+            {
+              type   : 'match[password]',
+              prompt : 'Passwords should probably match, yeah..'
+            }
+          ]
+        },
+      }, {
+        inline: true,
+        on: 'blur'
+      });
+    $('#submit').click(function(){
+      $('.ui.form').form('submit');
+    });

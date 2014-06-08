@@ -1,0 +1,11 @@
+{
+   "globals": {
+      "module": true,
+      "require": true,
+      "define": true,
+      "console": true,
+      "sails": true,
+      "$": true
+   },
+   "newcap":false
+}

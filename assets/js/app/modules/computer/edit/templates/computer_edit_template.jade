@@ -1,0 +1,41 @@
+// Computer Editor
+#computer-editor
+  // Title
+  h2.ui.thin.dividing.header
+    i.plus.icon
+    .content
+      if isNew
+        | Add Computer
+      else 
+        | Edit Computer
+  // Form
+  .ui.form.segment
+    .field
+      label Name
+      .ui.left.labeled.icon.input
+        input(type="text" placeholder="Device name (merely for your own convenience)" value=name name="name" id="name")
+        i.info.icon
+        .ui.corner.label
+          i.asterisk.icon
+    .field
+      label Mac Address
+      .ui.left.labeled.icon.input
+        input(type="text" placeholder="The MAC address of this computer." value=macAddress name="macAddress" id="macAddress")
+        i.info.icon
+        .ui.corner.label
+          i.asterisk.icon
+    .field
+      label Agent
+      .ui.selection.fluid.dropdown
+        input(type="hidden" id="agentId" name="agentId" value=agentId)
+        .default.text Select an agent
+        i.dropdown.icon
+        .menu
+          for item in items
+            .item(data-value=item.id)=item.deviceName
+        
+    button.ui.labeled.icon.green.save.button 
+      i.check.icon
+      | Save
+    span.h-space
+    button.ui.cancel.button Cancel

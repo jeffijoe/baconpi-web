@@ -1,0 +1,85 @@
+/**
+ * App styles
+ * @author Jeff Hansen
+ */
+ @import "breakpoints";
+ html, body {
+    position:absolute!important;
+    width: 100%;
+    height: 100%;
+ }
+ 
+ #chrome {
+    background: url('/img/subtle-pattern.png') repeat;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+.container {
+    padding: 20px 5% 0 5%;    
+}
+.no {
+    &.padding {
+        padding: 0!important;
+    }
+    &.margin {
+        margin: 0!important;
+    }
+}
+#computer-list {
+    padding-top: 20px;
+    position: relative;
+    .computer.ui.segment {
+        border-bottom: .2em solid rgba(0, 0, 0, .2);
+        border-radius: .33em;
+        margin-bottom: 20px;
+        display:table;
+        width:100%;
+        .computer-name {
+            color:#666;
+        }
+        .label {
+            margin-left:10px;
+        }
+        .status {
+            display:inline-block;
+            padding-right:20px;
+            padding-top:10px;
+        }
+        .info {
+            display:table-cell;
+            vertical-align: top;
+            width:80%;
+            padding-right:5%;
+            @media @mobile {
+                display:block;
+                width:100%;
+            }
+        }
+        .actions {
+            display:table-cell;
+            @media @mobile {
+                display:block;
+                padding-top:20px;
+            }
+            .awake {
+                border-bottom-right-radius: 0;
+                border-bottom-left-radius: 0;
+            }
+            .other {
+                &.fluid .ui.button {
+                    border-top-right-radius: 0;
+                    border-top-left-radius: 0;
+                    width:50%;
+                }
+            }
+        }
+    }
+}
+#password-container {
+    .password-form {
+        display:none;
+    }
+}

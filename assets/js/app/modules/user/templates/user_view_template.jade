@@ -1,0 +1,24 @@
+h1.ui.thin.heading My Account
+p This is where you manage your account. Big surprise there.
+
+.ui.user.form
+  .field
+    label Name
+    .ui.left.labeled.icon.input
+      input(type="text" name="name" id="name" placeholder="Please enter your name, bruh." value=name)
+      i.user.icon
+      .ui.corner.label
+        i.icon.asterisk
+  .field
+    label Email
+    .ui.left.labeled.icon.input
+      input(type="text" name="email" id="email" placeholder="Email address used for logging in... bruh" value=email)
+      i.mail.icon
+      .ui.corner.label
+        i.icon.asterisk
+  .ui.button.labeled.icon.positive.submit.user 
+    i.check.icon
+    | Save changes
+div
+  h3.ui.thin.heading Password
+  #password-container

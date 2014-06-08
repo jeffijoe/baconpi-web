@@ -1,0 +1,70 @@
+extends ../home_layout
+block head
+  title Log in
+
+block body
+  .account-page
+    .ui.one.column.page.grid
+      .row
+        .column
+          .ui.green.segment
+            .row
+              h2.ui.header.thin Log in
+                .sub.header
+                  | to your BaconPi account.
+            if errors
+              .row
+                .ui.error.message
+                  ul
+                    each error in errors
+                      li=error
+            .row
+              form(method="POST").ui.form.v-space
+                .field
+                  label Email
+                  .ui.left.labeled.icon.input
+                    input(type="text" name="email" placeholder="Email address used for logging in." value="jeffijoe@hotmail.com")
+                    i.user.icon
+                    .ui.corner.label
+                      i.icon.asterisk
+                .field
+                  label Password
+                  .ui.left.labeled.icon.input
+                    input(type="password" name="password" placeholder="Password" value="test123")
+                    i.lock.icon
+                    .ui.corner.label
+                      i.icon.asterisk
+              a#submit.ui.blue.submit.button Login
+block pagescripts
+  script(type="text/javascript").
+    $('.ui.form')
+      .form({
+        email: {
+          identifier : 'email',
+          rules: [
+            {
+              type   : 'empty',
+              prompt : 'Please enter your email you used when signing up.'
+            },
+            {
+              type   : 'email',
+              prompt : 'Yeah, how about we try that again..'
+            }
+          ]
+        },
+        password: {
+          identifier : 'password',
+          rules: [
+            {
+              type   : 'empty',
+              prompt : 'No, really - whats your password?'
+            }
+          ]
+        }
+      }, {
+        inline: true,
+        on: 'blur'
+      });
+    $('#submit').click(function(){
+      $('.ui.form').form('submit');
+    });

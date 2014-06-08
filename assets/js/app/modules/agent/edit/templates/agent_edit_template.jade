@@ -1,0 +1,31 @@
+// Agent Editor
+#agent-editor
+  // Title
+  h2.ui.thin.dividing.header
+    i.plus.icon
+    .content
+      if isNew
+        | Add Agent
+      else 
+        | Edit Agent
+  // Form
+  .ui.form.segment
+    .field
+      label Device name
+      .ui.left.labeled.icon.input
+        input(type="text" placeholder="Device name (merely for your own convenience)" value=deviceName name="deviceName" id="deviceName")
+        i.info.icon
+        .ui.corner.label
+          i.asterisk.icon
+    .field
+      label Device MAC
+      .ui.left.labeled.icon.input
+        input(type="text" placeholder="The MAC address of this device." value=macAddress name="macAddress" id="macAddress")
+        i.info.icon
+        .ui.corner.label
+          i.asterisk.icon
+    button.ui.labeled.icon.green.save.button 
+      i.check.icon
+      | Save
+    span.h-space
+    button.ui.cancel.button Cancel
