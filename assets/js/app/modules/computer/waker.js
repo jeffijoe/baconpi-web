@@ -30,7 +30,11 @@ define([
       });
     };
     
-    var socket = io.connect('http://localhost:1337/agentsocket', {
+    var socketUrl = 'http://localhost:1337/agentsocket';
+    if(window.document.location.port === '80') {
+      socketUrl = 'https://'+window.document.location.hostname+':8443/agentsocket';
+    }
+    var socket = io.connect(socketUrl, {
       query: 'clientType=client'
     });
     socket.on('connect', function () {
