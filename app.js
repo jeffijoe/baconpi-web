@@ -1,2 +1,4 @@
-// Start sails and pass it command line arguments
-require('sails').lift(require('optimist').argv);
+'use strict';
+var optimist = require('optimist');
+optimist.argv.prod = true;
+require('sails').lift(optimist.argv);

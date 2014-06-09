@@ -63,29 +63,17 @@ define([
   };
 
   App.addInitializer(function() {
-    // Load all modules we'll be using on startup.
-    // I didn't do this correctly,
-    // as I am depending on my user session to be loaded first.
-    // This is a main reason of slowdown. Need to rethink this.
     require([
-      'misc/bootstrapper'
-    ], function(promise) {
-      promise.done(function() {
-        require([
-          'modules/common/behaviors/device_edit_behavior',
-          'modules/common/behaviors/dropdown_behavior',
-          'modules/common/behaviors/semui_validation_behavior',
-          'modules/common/behaviors/onreturn_behavior',
-          'modules/navbar/navbar_module',
-          'modules/common/notification/notification_module',
-          'modules/agent/agent_module',
-          'modules/computer/computer_module',
-          'modules/user/user_module'
-        ], onModulesLoaded);
-      });
-    });
+      'modules/common/behaviors/device_edit_behavior',
+      'modules/common/behaviors/dropdown_behavior',
+      'modules/common/behaviors/semui_validation_behavior',
+      'modules/common/behaviors/onreturn_behavior',
+      'modules/navbar/navbar_module',
+      'modules/common/notification/notification_module',
+      'modules/agent/agent_module',
+      'modules/computer/computer_module',
+      'modules/user/user_module'
+    ], onModulesLoaded);
   });
-
-  App.start();
   return App;
 });

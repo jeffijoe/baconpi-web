@@ -61,6 +61,9 @@ module.exports = {
    */
   signout: function (req, res) {
     req.session.userId = null;
+    if(req.session.destroy)
+      req.session.destroy();
+    req.session = null;
     res.redirect('/account');
   },
   
