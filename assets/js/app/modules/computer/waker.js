@@ -42,10 +42,15 @@ define([
       })
     });
     socket.on('connect', function() {
+      console.log('Socket connected to agent namespace.');
       App.vent.trigger('waker:connect');
     });
     socket.on('disconnect', function() {
       App.vent.trigger('waker:disconnect');
+    });
+    socket.on('error', function(error) {
+      console.log('Socket error:', error);
+      App.vent.trigger('waker:error');
     });
     socket.on('current:agents', function (data) {
       var connectedAgents = App.entities.agents.filter(function (agent) {

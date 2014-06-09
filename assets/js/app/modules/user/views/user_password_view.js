@@ -58,8 +58,7 @@ define([
     },
     events: {
       'click @ui.btnShow': 'formContainer',
-      'click @ui.btnSavePassword': 'savePassword',
-      'blur input[type="password"]': 'validate'
+      'click @ui.btnSavePassword': 'savePassword'
     },
     formContainer: function() {
       this.ui.info.hide();

@@ -5,6 +5,7 @@ define([
   'jquery', 'lodash',
   'backbone',
   'marionette',
+  'config',
   'semantic',
   'misc/marionette-patches'
 ], function($, _, Backbone, Marionette) {
