@@ -38,7 +38,7 @@ module.exports = {
 
   port: process.env.OPENSHIFT_NODEJS_PORT || 1337,
 
-  host: process.env.OPENSHIFT_NODEJS_IP || 'localhost',
+  host: process.env.OPENSHIFT_NODEJS_IP || null,
 
   // The runtime "environment" of your Sails app is either 'development' or 'production'.
   //

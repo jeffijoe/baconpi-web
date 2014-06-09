@@ -1,10 +1,13 @@
 // Title
 .content
   .header=deviceName
+    if connected
+      span.ui.green.connectivity.label.add.h.v.spacing Online
   .description
     | Mac address: 
     span=macAddress
-    div
+    
+    div.add.spacing
       .ui.tiny.buttons
         .ui.tiny.open.button
           i.open.folder.icon

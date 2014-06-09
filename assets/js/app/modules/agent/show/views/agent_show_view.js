@@ -20,6 +20,9 @@ define([
       'click @ui.btnEdit': 'editAgent',
       'click @ui.btnAdd': 'addAgent'
     },
+    modelEvents: {
+      'change:connected': 'setConnectivity'
+    },
     regions: {
       computers: '#computer-list'
     },
@@ -28,6 +31,16 @@ define([
     },
     editAgent: function() {
       this.trigger('edit:agent', this.model);
+    },
+    onRender: function () {
+      this.setConnectivity(this.model);
+    },
+    setConnectivity: function (agent) {
+      if(!agent.get('connected')) {
+        this.$el.find('.connectivity').addClass('hidden');
+      } else {
+        this.$el.find('.connectivity').removeClass('hidden');
+      }
     }
   });
 });

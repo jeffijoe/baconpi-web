@@ -11,12 +11,14 @@ define([
   'collections/agents_collection',
   'models/user_model'
 ], function($, _, Backbone, Marionette, App) {
-  App.entities.currentUser.fetch().fail(function(xhr) {
+  return $.when([
+    App.entities.currentUser.fetch(),
+    App.entities.agents.fetch({
+      reset: true
+    })
+  ]).fail(function(xhr) {
     if (xhr.status == 401) {
       location.href = '/account';
     }
-  });
-  App.entities.agents.fetch({
-    reset: true
   });
 });
