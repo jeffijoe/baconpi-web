@@ -15,6 +15,7 @@ module.exports.session = {
   adapter: 'redis',
   host: process.env.OPENSHIFT_REDIS_HOST || 'localhost',
   pass: process.env.REDIS_PASSWORD || 'test',
+  port: process.env.OPENSHIFT_REDIS_PORT || 6379,
   prefix: 'sess:',
   ttl: 60*60*48, // 2 days
   db: 0
