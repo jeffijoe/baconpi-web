@@ -15,8 +15,13 @@ define([
     Waker.startsWithParent = true;
     Waker.onStart = function() {
       var socketUrl = 'http://localhost:1337/agentsocket';
+      
+      // Makes sure we connect correctly regardless of SSL or not.
       if (window.document.location.port === '') {
-        socketUrl = window.document.location.protocol + '//' + window.document.location.hostname + ':8443/agentsocket';
+        socketUrl = window.document.location.protocol + '//' + window.document.location.hostname;
+        if(window.document.location.protocol === 'https:')
+          socketUrl  =+ ':8443';
+        socketUrl += '/agentsocket';
       }
       console.log('Socket URL: ', socketUrl);
       if(socket)
