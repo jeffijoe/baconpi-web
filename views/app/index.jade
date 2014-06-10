@@ -1,0 +1,32 @@
+// App.
+extends ../app_layout
+
+block head
+  title BaconPi
+  
+block body
+  #chrome
+    // Dimmer illustrating the loading sequence.
+    #bootstrapping-dimmer.ui.active.dimmer
+      .ui.text.loader Initializing app..
+      
+    // Top menu
+    #menu
+
+    // Content
+    #content.container
+      
+    // Notifications page dimmer
+    #notifications.ui.page.dimmer
+
+  script(type="text/javascript").
+    window.bootstrapData = function(App) {
+      // Called by App so we can set our initial data on page load.
+      require(['collections/agents_collection', 'models/user_model'], function() {
+        var currentUser = !{JSON.stringify(currentUser)};
+        var agents = !{JSON.stringify(agents)};
+        App.entities.currentUser.set(currentUser);
+        App.entities.agents.reset(agents);
+        App.start();
+      });
+    }

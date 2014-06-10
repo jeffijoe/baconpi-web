@@ -8,7 +8,8 @@ define([
   'backbone',
   'marionette',
   'app',
-  'modules/user/views/user_view'
+  'modules/user/views/user_view',
+  'models/user_model'
 ], function($, _, Backbone, Marionette, App, UserView) {
   return Marionette.Controller.extend({
     initialize: function () {

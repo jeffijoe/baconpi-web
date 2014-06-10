@@ -69,7 +69,8 @@ define([
         this.listenTo(editController, 'edit:computer:save:success', this._saveSuccess);
         this.listenTo(editController, 'edit:computer:save:fail', this._saveFail);
       },
-      _saveSuccess: function () {
+      _saveSuccess: function (computer) {
+        App.vent.trigger('show:agent', computer.get('agentId'));
         App.execute('showSuccessMessage', {
           title: 'Awesome',
           message: 'Computer has been saved. That\'s just diddeley duddely dang awesome.'

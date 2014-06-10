@@ -35,7 +35,6 @@ define([
       }
     }
     $('#bootstrapping-dimmer').remove();
-
   }
 
   App.navigate = function(fragment, options) {
@@ -75,5 +74,6 @@ define([
       'modules/user/user_module'
     ], onModulesLoaded);
   });
+  window.bootstrapData(App);
   return App;
 });

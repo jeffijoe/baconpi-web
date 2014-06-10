@@ -38,7 +38,7 @@ module.exports = function(grunt) {
 
   var appJsFiles = [
     'js/vendor/require.js',
-    //'js/app/main.js'
+    'js/app/main.js'
   ];
 
   var siteJsFiles = [

@@ -1,5 +1,5 @@
 /**
- * DashboardController
+ * AppController
  *
  * @module      :: Controller
  * @description   :: A set of functions called `actions`.
@@ -24,10 +24,11 @@ module.exports = {
     Q.all([
       Q(User.findOne(session.userId)),
       Q(Agent.find({userId: session.userId}))
-    ]).then(function (user, agents) {
+    ]).spread(function (user, agents) {
       if (!user)
         return res.redirect('/account');
-      return res.view({
+
+      res.view({
         currentUser: user,
         agents: agents
       });

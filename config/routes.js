@@ -47,16 +47,16 @@ module.exports.routes = {
   '/agentsocket/send': 'AgentSocketController.send',
   
   // App routes
-  '/agents': 'Dashboard',
-  '/agents/new': 'Dashboard',
-  '/agents/:id': 'Dashboard',
-  '/agents/:id/edit': 'Dashboard',
+  '/agents': 'App',
+  '/agents/new': 'App',
+  '/agents/:id': 'App',
+  '/agents/:id/edit': 'App',
   
-  '/computers/new': 'Dashboard',
-  '/computers/:id/edit': 'Dashboard',
-  '/computers': 'Dashboard',
+  '/computers/new': 'App',
+  '/computers/:id/edit': 'App',
+  '/computers': 'App',
   
-  '/me': 'Dashboard',
+  '/me': 'App',
   
   // API routes
   'POST /api/agent/:agentId/computers': 'Computer.createScopedComputer',
