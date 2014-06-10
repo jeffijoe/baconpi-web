@@ -19,6 +19,8 @@ define([
       // Makes sure we connect correctly regardless of SSL or not.
       if (window.document.location.port === '') {
         socketUrl = window.document.location.protocol + '//' + window.document.location.hostname;
+        if(window.document.location.protocol === 'http:')
+          socketUrl  =+ ':8000';
         if(window.document.location.protocol === 'https:')
           socketUrl  =+ ':8443';
         socketUrl += '/agentsocket';
