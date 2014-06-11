@@ -17,8 +17,14 @@
 /*global User*/
 'use strict';
 var Q = require('q'),
-    _ = require('lodash'),
-    bcrypt = require('bcrypt-nodejs');
+  _ = require('lodash'),
+  bcrypt = require('bcrypt-nodejs'),
+  sails = require('sails'),
+  Recaptcha = require('recaptcha').Recaptcha;
+
+var RECAPTCHA_PUBLIC_KEY = sails.config.recaptcha.publicKey,
+    RECAPTCHA_PRIVATE_KEY = sails.config.recaptcha.privateKey;
+
 module.exports = {
 
   /**
@@ -27,14 +33,14 @@ module.exports = {
   index: function(req, res) {
     res.view();
   },
-  
+
   /**
    * Signs in the user
    */
-  doSignin: function (req, res) {
+  doSignin: function(req, res) {
     var user;
-    Q(User.findOneByEmail(req.body.email)).then(function (foundUser) {
-      if(! foundUser) {
+    Q(User.findOneByEmail(req.body.email)).then(function(foundUser) {
+      if (!foundUser) {
         return res.view('account/index', {
           errors: ['Did not find an account with that email address.']
         });
@@ -42,36 +48,40 @@ module.exports = {
       user = foundUser;
       return Q.nfcall(bcrypt.compare, req.body.password, user.password);
     })
-    .then(function (match) {
-      if(match !== true){
-        return res.view('account/index', {
-          errors: ['Password was incorrect.']
-        });
-      }
-      req.session.userId = user.id;
-      return res.redirect('/agents');
-    })
-    .catch(function (err) {
+      .then(function(match) {
+        if (match !== true) {
+          return res.view('account/index', {
+            errors: ['Password was incorrect.']
+          });
+        }
+        req.session.userId = user.id;
+        return res.redirect('/agents');
+      })
+      .
+    catch (function(err) {
       res.serverError(err);
     });
   },
-  
+
   /**
    * Sign out of the system.
    */
-  signout: function (req, res) {
+  signout: function(req, res) {
     req.session.userId = null;
-    if(req.session.destroy)
+    if (req.session.destroy)
       req.session.destroy();
     req.session = null;
     res.redirect('/account');
   },
-  
+
   /**
    * Create Account view.
    */
   signup: function(req, res) {
-    res.view();
+    var recaptcha = new Recaptcha(RECAPTCHA_PUBLIC_KEY, RECAPTCHA_PRIVATE_KEY);
+    res.view({
+      recaptcha: recaptcha.toHTML()
+    });
   },
 
   /**
@@ -79,69 +89,88 @@ module.exports = {
    */
   doSignup: function(req, res) {
     var data = req.body;
-    Q(User.findOneByEmail(data.email)).then(function(user) {
-      if (user) {
-        return res.view('account/signup', {
-          errors: ['Email already in use.']
-        });
+    var recaptchaData = {
+      remoteip: req.connection.remoteAddress,
+      challenge: req.body.recaptcha_challenge_field,
+      response: req.body.recaptcha_response_field
+    };
+    var recaptcha = new Recaptcha(RECAPTCHA_PUBLIC_KEY, RECAPTCHA_PRIVATE_KEY, recaptchaData);
+    recaptcha.verify(function(success, error_code) {
+      if (!success) {
+        return res.view('account/signup', _.extend({
+          recaptcha: recaptcha.toHTML(),
+          errors: ['That captcha was incorrect. Try again.']
+        }, data));
       }
-      return Q(User.create(data));
-    })
-    .then(function (user) {
-      req.session.userId = user.id;
-      return res.redirect('/agents');
-    })
-    .catch(function(err) {
-      res.serverError(err);
+
+      Q(User.findOneByEmail(data.email)).then(function(user) {
+        if (user) {
+          res.view('account/signup', _.extend({
+            recaptcha: recaptcha.toHTML(),
+            errors: ['Email already in use.']
+          }, data));
+          throw true;
+        } else return Q(User.create(data));
+      }).then(function(user) {
+        req.session.userId = user.id;
+        return res.redirect('/agents');
+      }).catch (function(err) {
+        if(err !== true)
+          res.serverError(err);
+      });
     });
   },
-  
+
   /**
    * Updates the details of the current account.
    */
-  updateDetails: function (req, res) {
+  updateDetails: function(req, res) {
     var data = req.body;
     delete data.password; // Don't try anything fancy schmancy here.
     var currentUserId = req.session.userId;
     var user;
-    Q(User.findOne(currentUserId)).then(function (foundUser) {
+    Q(User.findOne(currentUserId)).then(function(foundUser) {
       user = foundUser;
-      if(!user)
+      if (!user)
         return res.notFound();
       _.extend(user, data);
       return Q.nfcall(user.save.bind(user));
-    }).then(function () {
+    }).then(function() {
       return res.json(user);
-    }).fail(function (err) {
+    }).fail(function(err) {
       res.serverError(err);
     });
   },
-  
+
   /**
    * Change password
    */
-  changePassword: function (req, res) {
+  changePassword: function(req, res) {
     var data = req.body;
     var currentUserId = req.session.userId;
     var user;
-    Q(User.findOne(currentUserId)).then(function (foundUser) {
+    Q(User.findOne(currentUserId)).then(function(foundUser) {
       user = foundUser;
-      if(!user)
+      if (!user)
         return res.notFound();
-      
+
       return Q.nfcall(bcrypt.compare, data.oldPassword, user.password);
-    }).then(function (match) {
-      if(!match){
-        return res.status(400).json({error: 'Old password was not correct.'});
+    }).then(function(match) {
+      if (!match) {
+        return res.status(400).json({
+          error: 'Old password was not correct.'
+        });
       }
-      return user.changePassword(data.newPassword).then(function () {
-        return res.json({success:true});
+      return user.changePassword(data.newPassword).then(function() {
+        return res.json({
+          success: true
+        });
       });
-    }).fail(function (err) {
+    }).fail(function(err) {
       res.serverError(err);
     });
   },
-  
+
   /**
    * Overrides for the settings in `config/controllers.js`
    * (specific to AccountController)

@@ -3,6 +3,12 @@ block head
   title Create Account
 
 block body
+  script(type="text/javascript").
+    window.RecaptchaOptions = {
+       theme : 'clean',
+       lang  : 'en'
+    };
+  
   .account-page
     .ui.one.column.page.grid
       .row
@@ -23,14 +29,14 @@ block body
                 .field
                   label Name
                   .ui.left.labeled.icon.input
-                    input(type="text" name="name" placeholder="Please enter your name, bruh.")
+                    input(type="text" name="name" placeholder="Please enter your name, bruh." value=name)
                     i.user.icon
                     .ui.corner.label
                       i.icon.asterisk
                 .field
                   label Email
                   .ui.left.labeled.icon.input
-                    input(type="text" name="email" placeholder="Email address used for logging in... bruh")
+                    input(type="email" name="email" placeholder="Email address used for logging in... bruh" value=email)
                     i.mail.icon
                     .ui.corner.label
                       i.icon.asterisk
@@ -48,9 +54,13 @@ block body
                     i.lock.icon
                     .ui.corner.label
                       i.icon.asterisk
+                .field
+                  label Captcha (sorry, we kinda have to..)
+                  div
+                    != recaptcha
               input(type="submit" id="submit" value="Sign up").ui.blue.submit.button
 block pagescripts
-  script(type="text/javascript").
+  script(type="text/javascript").    
     $('.ui.form')
       .form({
         name: {
@@ -107,7 +117,8 @@ block pagescripts
         },
       }, {
         inline: true,
-        on: 'blur'
+        on: 'blur',
+        debug: false
       });
     $('#submit').click(function(){
       $('.ui.form').form('submit');

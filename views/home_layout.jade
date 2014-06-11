@@ -1,18 +1,19 @@
 extends base_layout
 
 block body
-   .ui.fixed.transparent.main.menu
-     .ui.page.grid
-       .title.item BaconPi
-       .right.menu
-         a.active.item Home
-         a.item Login
-         a.item Register
+  .ui.fixed.transparent.main.menu
+    .ui.page.grid
+      .title.item BaconPi
+      .right.menu
+        a.active.item Home
+        a.item Login
+        a.item Register
        
-   .wrapper
-      block content
+  .wrapper
+    block content
 block scripts   
   // SCRIPTS
-  script(type="text/javascript", src="/min/site.js")
+  script(type="text/javascript", src="/js/vendor/jquery.js")
+  script(type="text/javascript", src="/js/vendor/semantic.js")
   // SCRIPTS END
 block pagescripts
