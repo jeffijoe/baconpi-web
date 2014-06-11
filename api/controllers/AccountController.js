@@ -78,7 +78,7 @@ module.exports = {
    * Create Account view.
    */
   signup: function(req, res) {
-    var recaptcha = new Recaptcha(RECAPTCHA_PUBLIC_KEY, RECAPTCHA_PRIVATE_KEY);
+    var recaptcha = new Recaptcha(RECAPTCHA_PUBLIC_KEY, RECAPTCHA_PRIVATE_KEY, null, req.secure);
     res.view({
       recaptcha: recaptcha.toHTML()
     });
@@ -94,7 +94,7 @@ module.exports = {
       challenge: req.body.recaptcha_challenge_field,
       response: req.body.recaptcha_response_field
     };
-    var recaptcha = new Recaptcha(RECAPTCHA_PUBLIC_KEY, RECAPTCHA_PRIVATE_KEY, recaptchaData);
+    var recaptcha = new Recaptcha(RECAPTCHA_PUBLIC_KEY, RECAPTCHA_PRIVATE_KEY, recaptchaData, req.secure);
     recaptcha.verify(function(success, error_code) {
       if (!success) {
         return res.view('account/signup', _.extend({
