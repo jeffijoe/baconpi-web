@@ -78,7 +78,7 @@ module.exports = {
    * Create Account view.
    */
   signup: function(req, res) {
-    var recaptcha = new Recaptcha(RECAPTCHA_PUBLIC_KEY, RECAPTCHA_PRIVATE_KEY, null, req.secure);
+    var recaptcha = new Recaptcha(RECAPTCHA_PUBLIC_KEY, RECAPTCHA_PRIVATE_KEY, req.secure);
     res.view({
       recaptcha: recaptcha.toHTML()
     });
