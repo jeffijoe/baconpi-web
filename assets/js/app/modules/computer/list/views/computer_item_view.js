@@ -28,24 +28,23 @@ define([
       'before:signal:send': 'showWakingDimmer',
     },
     initialize: function () {
+      this.listenTo(App.vent, 'waker:current:agents', this.refreshConnectionStatus);
       this.listenTo(App.vent, 'waker:agent:connect', this.toggleWaking);
       this.listenTo(App.vent, 'waker:agent:disconnect', this.toggleWaking);
       this.listenTo(App.vent, 'waker:signal:send', this.hideWakingDimmer);
       this.listenTo(App.vent, 'waker:signal:error', this.hideWakingDimmer);
     },
     onRender: function () {
+      this.refreshConnectionStatus();
+    },
+    refreshConnectionStatus: function () {
       var agent = App.entities.agents.get(this.model.get('agentId'));
       this.toggleWaking(agent);
     },
     toggleWaking: function (agent) {
       if(agent.id === this.model.get('agentId')) {
         var connected = agent.get('connected') === true;
-        this.ui.wake.prop('disabled', !connected);
-        if(connected) {
-          this.ui.wake.removeClass('disabled');
-        } else {
-          this.ui.wake.addClass('disabled');
-        }
+        this.ui.wake.prop('disabled', !connected).toggleClass('disabled', !connected);
       }
     },
     showWakingDimmer: function() {

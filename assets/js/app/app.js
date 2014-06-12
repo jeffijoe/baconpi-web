@@ -68,6 +68,7 @@ define([
       'modules/common/behaviors/semui_validation_behavior',
       'modules/common/behaviors/onreturn_behavior',
       'modules/navbar/navbar_module',
+      'modules/errorhandling/errorhandling_module',
       'modules/common/notification/notification_module',
       'modules/agent/agent_module',
       'modules/computer/computer_module',

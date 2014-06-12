@@ -14,9 +14,11 @@ define([
     var socket;
     Waker.startsWithParent = true;
     Waker.onStart = function() {
+      // Localhost socket URL.
       var socketUrl = 'http://localhost:1337/agentsocket';
       
       // Makes sure we connect correctly regardless of SSL or not.
+      // NOTE: This is specific to OpenShift.
       if (window.document.location.port === '') {
         socketUrl = window.document.location.protocol + '//' + window.document.location.hostname;
         if(window.document.location.protocol === 'http:')
@@ -25,9 +27,10 @@ define([
           socketUrl  += ':8443';
         socketUrl += '/agentsocket';
       }
-      console.log('Socket URL: ', socketUrl);
+      
       if(socket)
         socket.disconnect();
+      
       socket = io.connect(socketUrl, {
         query: $.param({
           clientType: 'client',
@@ -35,15 +38,13 @@ define([
         })
       });
       socket.on('connect', function() {
-        console.log('Socket connected to agent namespace.');
         App.vent.trigger('waker:connect');
       });
       socket.on('disconnect', function() {
         App.vent.trigger('waker:disconnect');
       });
       socket.on('error', function(error) {
-        console.log('Socket error:', error);
-        App.vent.trigger('waker:error');
+        App.vent.trigger('waker:error', error);
       });
       socket.on('current:agents', function(data) {
         var connectedAgents = App.entities.agents.filter(function(agent) {
@@ -54,7 +55,6 @@ define([
             connected: true
           });
         });
-        console.log('Current agents: ', connectedAgents);
         App.vent.trigger('waker:current:agents', connectedAgents);
       });
       socket.on('agent:connect', function(data) {
@@ -65,7 +65,6 @@ define([
         agent.set({
           connected: true
         });
-        console.log('Agent connected:', agent);
         App.vent.trigger('waker:agent:connect', agent);
       });
       socket.on('agent:disconnect', function(data) {
@@ -76,7 +75,6 @@ define([
         agent.set({
           connected: false
         });
-        console.log('Agent disconnected:', agent);
         App.vent.trigger('waker:agent:connect', agent);
       });
       socket.on('signal:send', function(data) {
@@ -110,9 +108,6 @@ define([
         computerId: computer.id
       });
     };
-
-
-
 
     // Weeee..
     App.commands.setHandler('wakeComputer', function(computer) {

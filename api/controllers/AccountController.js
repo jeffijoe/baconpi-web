@@ -23,7 +23,7 @@ var Q = require('q'),
   Recaptcha = require('recaptcha').Recaptcha;
 
 var RECAPTCHA_PUBLIC_KEY = sails.config.recaptcha.publicKey,
-    RECAPTCHA_PRIVATE_KEY = sails.config.recaptcha.privateKey;
+  RECAPTCHA_PRIVATE_KEY = sails.config.recaptcha.privateKey;
 
 module.exports = {
 
@@ -31,7 +31,10 @@ module.exports = {
    * Index
    */
   index: function(req, res) {
-    res.view();
+    if (req.session.userId)
+      res.redirect('/agents');
+    else
+      res.view();
   },
 
   /**
@@ -47,18 +50,15 @@ module.exports = {
       }
       user = foundUser;
       return Q.nfcall(bcrypt.compare, req.body.password, user.password);
-    })
-      .then(function(match) {
-        if (match !== true) {
-          return res.view('account/index', {
-            errors: ['Password was incorrect.']
-          });
-        }
-        req.session.userId = user.id;
-        return res.redirect('/agents');
-      })
-      .
-    catch (function(err) {
+    }).then(function(match) {
+      if (match !== true) {
+        return res.view('account/index', {
+          errors: ['Password was incorrect.']
+        });
+      }
+      req.session.userId = user.id;
+      return res.redirect('/agents');
+    }).fail(function(err) {
       res.serverError(err);
     });
   },
@@ -79,7 +79,7 @@ module.exports = {
    */
   signup: function(req, res) {
     var recaptcha = new Recaptcha(RECAPTCHA_PUBLIC_KEY, RECAPTCHA_PRIVATE_KEY, req.secure);
-    
+
     res.view({
       recaptcha: recaptcha.toHTML()
     });
@@ -96,7 +96,7 @@ module.exports = {
       response: req.body.recaptcha_response_field
     };
     var recaptcha = new Recaptcha(RECAPTCHA_PUBLIC_KEY, RECAPTCHA_PRIVATE_KEY, recaptchaData, req.secure);
-    recaptcha.verify(function(success, error_code) {
+    recaptcha.verify(function(success) {
       if (!success) {
         return res.view('account/signup', _.extend({
           recaptcha: recaptcha.toHTML(),
@@ -115,8 +115,8 @@ module.exports = {
       }).then(function(user) {
         req.session.userId = user.id;
         return res.redirect('/agents');
-      }).catch (function(err) {
-        if(err !== true)
+      }).fail (function(err) {
+        if (err !== true)
           res.serverError(err);
       });
     });
