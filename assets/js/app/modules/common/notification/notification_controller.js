@@ -17,9 +17,9 @@ define([
     showMessage: function(options) {
       var view = new SimpleView(options);
       var region = this.region;
-      this.listenTo(view, 'close', function () {
-        region.reset();
-      });
+      // this.listenTo(view, 'close', function () {
+      //   region.reset();
+      // });
       this.region.show(view);
     },
     showInfoMessage: function (message) {
