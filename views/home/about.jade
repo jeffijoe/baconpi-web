@@ -1,0 +1,56 @@
+extends ../home_layout
+block vars
+  - var activePage = 'About';
+
+block head
+  title About &bullet; BaconPi
+
+block content
+  .ui.page.grid
+    .row
+      .sixteen.wide.column
+        h1.ui.thin.heading What is BaconPi?
+        p.
+          BaconPi is a (free, as of now) Wake-On-LAN service, consisting of a hosted web application, and
+          a script to be installed on any NodeJS-capable device, preferably a low-powered one.
+          
+        p.
+          <a href="http://wikipedia.org/wiki/Wake_on_LAN">Wake-On-LAN</a> is described pretty well by Wikipedia:
+        
+        blockquote.
+          Wake-on-LAN (WOL) is an Ethernet computer networking standard that allows a computer to be turned on or <strong>awakened</strong> by a network message.
+        p.
+          There's a few limitations though, such as the the fact that the device sending
+          the message must be able to directly reach the machine targeted for awakening.
+        p.
+          We can set up port-forwarding on our routers, but this also requires that
+          we have a static IP that our remote devices can reach in order to send the special WOL-packet
+          to the destination machine.
+        p.
+          This is a problem, atleast for me, because (as of right now) I am sitting in a dormitory
+          where we have no static IP's assigned. This is primarily why I developed BaconPi.
+        
+        h1.ui.thin.heading How does it work?
+        p.
+          Remember the <strong>NodeJS-capable</strong> device I mentioned earlier?
+          What if we reversed the whole process?
+          What if we, instead of sending the WOL-packet directly to the destination machine,
+          low-powered always-online device wait for our signal, that would then pass it on to the
+          destination machine? And what if we didn't have to configure our network for <strong>anything</strong> at all?
+        p.
+          The aforementioned NodeJS-capable device, from hereon refered to as an <strong>agent</strong>,
+          listens for the wake-up call. It does this by connecting to the BaconPi server,
+          and patiently awaiting your command.
+        p.
+          All you have to do, is tell it to wake up your computer, and it will handle the rest.
+        h1.ui.thin.heading How do I get started?
+        p.
+          It's easy!
+        ul
+          li Create an account
+          li Add your <strong>agent</strong> to your account
+          li Add your target computer(s) to your agent
+          li Install the BaconPi software onto your agent, and configure your agent to run BaconPi on startup.
+          li Done.
+          
+                    

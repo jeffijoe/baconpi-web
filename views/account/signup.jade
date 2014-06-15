@@ -2,7 +2,10 @@ extends ../home_layout
 block head
   title Create Account
 
-block body
+block vars
+  - activePage = 'Register';
+
+block content
   script(type="text/javascript").
     window.RecaptchaOptions = {
        theme : 'clean',

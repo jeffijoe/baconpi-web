@@ -37,6 +37,9 @@ module.exports.routes = {
   },
   // Pages
   'GET /account': 'Account',
+  'GET /about': {
+    view: 'home/about'
+  },
   'GET /account/signup': 'Account.signup',
   'GET /account/signout': 'Account.signout',
   'POST /account/signup': 'Account.doSignup',

@@ -2,7 +2,10 @@ extends ../home_layout
 block head
   title Log in
 
-block body
+block vars
+  - activePage = 'Login';
+
+block content
   .account-page
     .ui.one.column.page.grid
       .row
@@ -35,6 +38,7 @@ block body
                     .ui.corner.label
                       i.icon.asterisk
               a#submit.ui.blue.submit.button Login
+              
 block pagescripts
   script(type="text/javascript").
     $('.ui.form')

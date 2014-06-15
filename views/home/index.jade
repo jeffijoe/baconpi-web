@@ -1,11 +1,42 @@
 extends ../home_layout
+block head
+  title Home &bullet; BaconPi
 
 block content
   .ui.page.grid
-    .sixteen.wide.column
-      h1.thin BaconPi
-      p It's a thing for having a Raspberry Pi wake up your computers.
-      div
-        a(href="/account").ui.green.button Log in
-        span.h-space Or
-        a(href="/account/signup").ui.green.button Register
+    .row
+      .sixteen.wide.column.center
+        img(src="/img/logo-huge.png")#huge-logo
+        h1.big.ass.thin.no.margin BaconPi
+        p.huge It's Wake-On-LAN, but reversed.
+        p
+          a(href="/account").ui.green.button Log in
+          span.h-space Or
+          a(href="/account/signup").ui.green.button Register
+          
+        p Continue to learn more.
+        p
+          i.large.down.arrow.icon
+  .ui.three.column.page.stackable.grid
+    .row
+      .column
+        h2.ui.thin.heading No port-forwarding
+        p.
+          With BaconPi, you don't need to port-forward anything.
+          This is actually the whole idea behind everything.
+      .column
+        h2.ui.thin.heading Static IP not required
+        p.
+          Sometimes the biggest issue is the fact that
+          not everyone have access to a static IP address
+          that they can route as they wish.
+      .column
+        h2.ui.thin.heading No port-forwarding
+        p.
+          With BaconPi, you don't need to port-forward anything.
+          This is actually the whole idea behind everything.
+  .ui.column.page.grid      
+    .row
+      .sixteen.wide.column
+        h1.ui.thin.heading Want to know more?
+        p Visit the <a href="/about">about</a> page for more information. 
