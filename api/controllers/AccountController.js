@@ -23,7 +23,8 @@ var Q = require('q'),
   Recaptcha = require('recaptcha').Recaptcha;
 
 var RECAPTCHA_PUBLIC_KEY = sails.config.recaptcha.publicKey,
-  RECAPTCHA_PRIVATE_KEY = sails.config.recaptcha.privateKey;
+    RECAPTCHA_PRIVATE_KEY = sails.config.recaptcha.privateKey,
+    MAX_USER_COUNT = 500;
 
 module.exports = {
 
@@ -32,9 +33,9 @@ module.exports = {
    */
   index: function(req, res) {
     if (req.session.userId)
-      res.redirect('/agents');
-    else
-      res.view();
+      return res.redirect('/agents');
+    
+    res.view();
   },
 
   /**
@@ -42,6 +43,7 @@ module.exports = {
    */
   doSignin: function(req, res) {
     var user;
+
     Q(User.findOneByEmail(req.body.email)).then(function(foundUser) {
       if (!foundUser) {
         return res.view('account/index', {
@@ -104,18 +106,28 @@ module.exports = {
         }, data));
       }
 
-      Q(User.findOneByEmail(data.email)).then(function(user) {
+      // We should not have to do this ever, but oh well..
+      Q(User.find({})).then(function(users) {
+        if (users.length >= MAX_USER_COUNT) {
+          res.view('account/index', {
+            errors: ['Apologies, but we already have '+MAX_USER_COUNT+' members. Please contact me when you see this, cause this is friggin awesome!']
+          });
+          throw true;
+        }
+        return Q(User.findOneByEmail(data.email));
+      }).then(function(user) {
         if (user) {
           res.view('account/signup', _.extend({
             recaptcha: recaptcha.toHTML(),
             errors: ['Email already in use.']
           }, data));
           throw true;
-        } else return Q(User.create(data));
+        }
+        return Q(User.create(data));
       }).then(function(user) {
         req.session.userId = user.id;
         return res.redirect('/agents');
-      }).fail (function(err) {
+      }).fail(function(err) {
         if (err !== true)
           res.serverError(err);
       });

@@ -1,0 +1,30 @@
+extends ../home_layout
+block vars
+  - var activePage = 'Privacy';
+
+block head
+  title Privacy policy
+
+block content
+  .ui.page.grid
+    .row
+      .sixteen.wide.column
+        :markdown
+          # Privacy policy
+          
+          While we do use your email address for authenticating you, that's all we use it for.
+          
+          We won't sell your email, or any of your other personal information for that matter.
+          
+          If I so desire I might send you a personal email if I have something cool to tell you,
+          but I won't spam you. I promise. I am just one person, even though I say "*we*" sometimes, 
+          which is actually kinda funny.
+          
+          Your password is **not** stored in cleartext, so don't worry about that either.
+          
+          Your device's MAC address is trasmitted over the network when you send a Wake request,
+          and this goes over an encrypted connection, unless you yourself manually tampered with it.
+
+          We don't keep any information about your devices that you have not explicitly given us.
+          This may change in the future, but it won't be anything worth mentioning, if anything it would
+          solely be to improve the user experience. I'm not an idiot - atleast not a complete idiot.

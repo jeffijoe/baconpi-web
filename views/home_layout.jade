@@ -15,7 +15,7 @@ block body
         img(src="/img/logo-small.png")#site-logo
         | BaconPi
     .right.menu
-      +menuItem('Home', '/')
+      +menuItem('Get Started', '/getstarted')
       +menuItem('Login', '/account')
       +menuItem('Register', '/account/signup')
       +menuItem('About', '/about')
@@ -23,10 +23,11 @@ block body
   #front-page.wrapper
     block content
       
-  footer#page-footer.
-    BaconPi is a thing by Jeff Hansen.
-    Copryright &copy; Jeff Hansen - Jeffijoe.com 2014. All rights reserved.
-    All usage of the service or whatever implies agreement of our <a href="/terms">Terms of Service</a>.
+  footer#page-footer
+    :markdown
+      BaconPi is a thing by Jeff Hansen.
+      Copryright © **Jeff Hansen - Jeffijoe.com 2014**. All rights reserved.
+      All usage of the service or whatever implies agreement of our [Terms of Service](/terms). and [Privacy Policy](/privacy)
 block scripts   
   // SCRIPTS
   script(type="text/javascript", src="/js/vendor/jquery.js")

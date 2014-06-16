@@ -1,0 +1,42 @@
+extends ../home_layout
+block vars
+  - var activePage = 'Get Started';
+
+block head
+  title Get Started
+
+block content
+  .ui.page.grid
+    .row
+      .sixteen.wide.column
+        :markdown
+          # Get Started!
+          
+          ## PLEASE NOTE: STILL NOT ONLINE YET!
+          
+          First, you're gonna want an account, so..
+        
+        a(href="/account/signup").ui.green.button Create an account
+        
+        :markdown
+          if you don't already have one.
+          
+          The only thing you would ever need to download,
+          is the BaconPi software for your agent devices.
+          
+          **This page assumes a Raspberry Pi is being used as an agent**
+          
+          As of right now, the only *official* implementation available
+          is the [Node.js](http://nodejs.org) version. Please install Node.js (with NPM as well),
+          and run the following in your terminal to install BaconPi to your agent device:
+          
+          ```
+          npm install baconpi -g
+          ```
+          
+          This will install BaconPi as a global program on your device. To start it,
+          run the following in your terminal on the device you just installed BaconPi onto:
+          
+          ```
+          baconpi
+          ```

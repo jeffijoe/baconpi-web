@@ -9,48 +9,85 @@ block content
   .ui.page.grid
     .row
       .sixteen.wide.column
-        h1.ui.thin.heading What is BaconPi?
-        p.
+        :markdown
+          # What is BaconPi?
+
           BaconPi is a (free, as of now) Wake-On-LAN service, consisting of a hosted web application, and
           a script to be installed on any NodeJS-capable device, preferably a low-powered one.
-          
-        p.
-          <a href="http://wikipedia.org/wiki/Wake_on_LAN">Wake-On-LAN</a> is described pretty well by Wikipedia:
-        
-        blockquote.
-          Wake-on-LAN (WOL) is an Ethernet computer networking standard that allows a computer to be turned on or <strong>awakened</strong> by a network message.
-        p.
+
+          [Wake-On-LAN](http://wikipedia.org/wiki/Wake_on_LAN) is described pretty well by Wikipedia:
+
+          > Wake-on-LAN (WOL) is an Ethernet computer networking standard that allows a computer to be turned on or **awakened** by a network message.
+
           There's a few limitations though, such as the the fact that the device sending
           the message must be able to directly reach the machine targeted for awakening.
-        p.
+
           We can set up port-forwarding on our routers, but this also requires that
           we have a static IP that our remote devices can reach in order to send the special WOL-packet
           to the destination machine.
-        p.
+
           This is a problem, atleast for me, because (as of right now) I am sitting in a dormitory
           where we have no static IP's assigned. This is primarily why I developed BaconPi.
-        
-        h1.ui.thin.heading How does it work?
-        p.
-          Remember the <strong>NodeJS-capable</strong> device I mentioned earlier?
+
+          # How does it work?
+
+          Remember the **NodeJS-capable** device I mentioned earlier?
           What if we reversed the whole process?
           What if we, instead of sending the WOL-packet directly to the destination machine,
-          low-powered always-online device wait for our signal, that would then pass it on to the
-          destination machine? And what if we didn't have to configure our network for <strong>anything</strong> at all?
-        p.
-          The aforementioned NodeJS-capable device, from hereon refered to as an <strong>agent</strong>,
+          had a *low-powered always-online device* wait for our signal, that would then pass it on to the
+          destination machine? And what if we didn't have to configure our network for **anything** at all?
+
+          The aforementioned NodeJS-capable device, from hereon refered to as an **agent**,
           listens for the wake-up call. It does this by connecting to the BaconPi server,
           and patiently awaiting your command.
-        p.
+
           All you have to do, is tell it to wake up your computer, and it will handle the rest.
-        h1.ui.thin.heading How do I get started?
-        p.
+
+          # How do I get started?
+
           It's easy!
-        ul
-          li Create an account
-          li Add your <strong>agent</strong> to your account
-          li Add your target computer(s) to your agent
-          li Install the BaconPi software onto your agent, and configure your agent to run BaconPi on startup.
-          li Done.
+
+          *   Create an account
+          *   Add your **agent** to your account
+          *   Add your target computer(s) to your agent
+          *   Install the BaconPi software onto your agent, and configure your agent to run BaconPi on startup.
+          *   Done.
           
-                    
+          
+          # How is it free?
+          
+          Because it didn't cost anything but time to make, other than the hardware, which I had lying around anyway.
+          
+          Also, you can thank [OpenShift](https://www.openshift.com/) for the free gears, as well as the developers of
+          my chosen tech stack:
+          
+          *   Sails JS (Node.js powered), server / API backend
+          *   MongoDB, for storage
+          *   Redis, for session storage
+          *   node-wol, for the Node Wake-On-LAN implementation
+          *   Marionette.js (+ Backbone.js), the front-end JS library.
+          *   Lodash, utility belt for JS.
+          *   jQuery.. yeah.
+          *   Q, for promises.
+          *   Grunt, for (almost) painless builds
+          *   RequireJS, for client-side dependency management
+          *   Semantic UI, user interface coolness.
+          *   JADE, for templating.
+          *   Socket.IO for the (real time) communication.
+          
+          # Any limits?
+          
+          Yes, I am currently limiting the amount of users I am serving to 500, to ensure my shit does not go down due to lack of resources.
+          If this will ever happen (lol, good one..), I will figure something out.
+          
+          # Who made this?
+          
+          Well... [me](http://jeffijoe.com/about), obviously. I'm Jeff Hansen, a full-time software developer currently employed at [MemberLink](http://memberlink.com).
+          I do these things in my free time. If you need help, you can reach me on
+          
+        a(href="http://twitter.com/Jeffijoe" target="_blank").ui.blue.labeled.icon.button 
+          i.labeled.twitter.icon
+          | Twitter
+          
+        :markdown
+          Thanks to [Amanda Callesen](http://mamze95.deviantart.com) for the awesomesauce logo.  

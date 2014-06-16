@@ -40,6 +40,15 @@ module.exports.routes = {
   'GET /about': {
     view: 'home/about'
   },
+  'GET /terms': {
+    view: 'home/terms'
+  },
+  'GET /privacy': {
+    view: 'home/privacy'
+  },
+  'GET /getstarted': {
+    view: 'home/getstarted'
+  },
   'GET /account/signup': 'Account.signup',
   'GET /account/signout': 'Account.signout',
   'POST /account/signup': 'Account.doSignup',

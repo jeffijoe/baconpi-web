@@ -15,7 +15,8 @@
     "sails-mongo": "~0.9.x",
     "grunt-contrib-jade": "~0.11.x",
     "q": "~1.0.x",
-    "recaptcha": "git+https://github.com/stoneburner/node-recaptcha.git"
+    "recaptcha": "git+https://github.com/stoneburner/node-recaptcha.git",
+    "markdown": "~0.5.0"
   },
   "scripts": {
     "start": "node app.js --prod"
