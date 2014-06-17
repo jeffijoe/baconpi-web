@@ -31,7 +31,11 @@ module.exports = {
       throw err;
     });
   },
-
+  
+  establish: function (req, res) {
+    res.send(200, '');
+  },
+  
   /**
    * Overrides for the settings in `config/controllers.js`
    * (specific to SessionController)

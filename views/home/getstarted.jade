@@ -12,8 +12,6 @@ block content
         :markdown
           # Get Started!
           
-          ## PLEASE NOTE: STILL NOT ONLINE YET!
-          
           First, you're gonna want an account, so..
         
         a(href="/account/signup").ui.green.button Create an account
@@ -40,3 +38,77 @@ block content
           ```
           baconpi
           ```
+          
+          So, now the agent is running, awaiting your command. But.. **how?**
+          
+          --------------------
+          
+          ## Setting up shop
+          
+          This guide assumes basic computer knowledge. If you are seeking a Wake-On-LAN solution, then
+          you should be knowledgeable enough.
+          
+          > NOTE: **this guide will not show you how to enable your computer for Wake-On-LAN!
+          > You can find excellent guides to this on the Internet.**. You probably want to
+          > set this up before anything else.
+          
+          Log in to your BaconPi account, and press the `Add Agent` button.
+          This is also available in the `Select agent` menu at the top.
+          
+          You will be prompted for your agent's device name. This can be anything
+          you want, it has no impact on anything.
+          
+          You are also prompted for a *device MAC address*. To optain this from your Raspberry Pi,
+          do the following (if you have BaconPi running, you need to exit it with Ctrl+C):
+          
+          ```
+          ifconfig | grep HWaddr
+          ```
+          
+          This should give you something like:
+          
+          ```
+          eth0      Link encap:Ethernet  HWaddr 12:34:56:78:90:12
+          ```
+          
+          The part after `HWaddr` is your MAC address. If you have more than one line, pick the interface connected to the Internet. Copy that and paste it into the appropriate field,
+          and press **save**. **MAC addresses are case sensitive!**
+          
+          So you got your agent set up, now you will need to add your computers that your agent should be able to wake up.
+          Press **show** under your agent's name. This will take you to your agent's "dashboard".
+          
+          Before you continue though, try running `baconpi` on your agent, and wait like 40 seconds.
+          You will see your agent coming online on the dashboard. Pretty neat, huh?
+          
+          Alright, so, you're in your agent dashboard. Press `Add Computer` and enter your computers name, and it's MAC address.
+          You can optain your computers MAC address with the corresponding `ip/ifconfig` command on your system, respectively.
+          Press **save**.
+          
+          Alright, you're all set up. You can now log into your account from anywhere in the world, with any web-enabled device, and
+          press the Wake button.
+          
+          # Starting BaconPi on agent boot
+          
+          Having to SSH into your agent every time you want to start BaconPi (even though if you leave it turned on all the time, this should
+          not be such a frequent task), is kind of annoying.
+          
+          Configuring your device to automatically start up BaconPi on boot is really beyond the scope of
+          this guide, but you can modify your `/etc/rc.local`, by adding the `baconpi &` command before the `exit 0` statement.
+          
+          > Note: The `&` ensures BaconPi runs in the background.
+          
+          If you want output logged, you could write it as
+          
+          ```
+          baconpi > /var/log/baconpi.log 2>&1
+          ```
+          
+          Enjoy!
+          
+          ~ Jeff
+          
+          
+          
+          
+          
+          

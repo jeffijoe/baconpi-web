@@ -18,6 +18,10 @@ module.exports.policies = {
   // (`true` allows public access) 
   '*': 'isAuthenticated',
   'AccountController': true,
+  'SessionController': {
+  	'*': 'isAuthenticated',
+  	'establish': true
+  },
   'ComputerController': ['isAuthenticated','setUserId'],
   'AgentController': ['isAuthenticated','setUserId'],
   
