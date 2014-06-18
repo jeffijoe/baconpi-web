@@ -25,15 +25,21 @@ block content
           **This page assumes a Raspberry Pi is being used as an agent**
           
           As of right now, the only *official* implementation available
-          is the [Node.js](http://nodejs.org) version. Please install Node.js (with NPM as well),
+          is the [Node.js v0.10](http://nodejs.org) version. Please install Node.js (with NPM as well),
           and run the following in your terminal to install BaconPi to your agent device:
           
           ```
-          npm install baconpi -g
+          sudo npm install baconpi -g
           ```
           
-          This will install BaconPi as a global program on your device. To start it,
-          run the following in your terminal on the device you just installed BaconPi onto:
+          > If this is too much trouble, send me a tweet and I might consider
+          > preparing an SD-card image that you can just download and write to your
+          > SD-card.
+          
+          This will install BaconPi as a global program on your device. 
+          **Please note**, this may take a while.
+          
+          To start it, run the following in your terminal:
           
           ```
           baconpi
@@ -58,20 +64,19 @@ block content
           You will be prompted for your agent's device name. This can be anything
           you want, it has no impact on anything.
           
-          You are also prompted for a *device MAC address*. To optain this from your Raspberry Pi,
+          You are also prompted for a *Device MAC*. To optain this from your Raspberry Pi,
           do the following (if you have BaconPi running, you need to exit it with Ctrl+C):
           
           ```
-          ifconfig | grep HWaddr
+          baconpi --mac
           ```
           
           This should give you something like:
           
           ```
-          eth0      Link encap:Ethernet  HWaddr 12:34:56:78:90:12
+          MAC address: 12:34:56:78:90:12
           ```
-          
-          The part after `HWaddr` is your MAC address. If you have more than one line, pick the interface connected to the Internet. Copy that and paste it into the appropriate field,
+          Copy that and paste it into the appropriate field,
           and press **save**. **MAC addresses are case sensitive!**
           
           So you got your agent set up, now you will need to add your computers that your agent should be able to wake up.
@@ -100,7 +105,7 @@ block content
           If you want output logged, you could write it as
           
           ```
-          baconpi > /var/log/baconpi.log 2>&1
+          /usr/local/bin/node /usr/local/bin/baconpi > /var/log/baconpi.log 2>&1 &
           ```
           
           Enjoy!
