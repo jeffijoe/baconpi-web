@@ -20,9 +20,9 @@
     "forever-monitor": "~1.1.x"
   },
   "scripts": {
-    "start": "node app.js --prod"
+    "start": "node production.js"
   },
-  "main": "app.js",
+  "main": "production.js",
   "repository": "",
   "author": "Jeff Hansen",
   "license": ""
