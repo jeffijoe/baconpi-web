@@ -16,7 +16,8 @@
     "grunt-contrib-jade": "~0.11.x",
     "q": "~1.0.x",
     "recaptcha": "git+https://github.com/stoneburner/node-recaptcha.git",
-    "markdown": "~0.5.0"
+    "markdown": "~0.5.0",
+    "forever-monitor": "~1.1.x"
   },
   "scripts": {
     "start": "node app.js --prod"
