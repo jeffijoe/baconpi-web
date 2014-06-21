@@ -23,13 +23,13 @@ define([
   Marionette.Behaviors.behaviorsLookup = function() {
     return App.Behaviors;
   };
-
+  
   function onModulesLoaded() {
     if (Backbone.history) {
       Backbone.history.start({
         pushState: true
       });
-
+      
       if (App.getCurrentRoute() === '') {
         App.trigger('list:agents');
       }

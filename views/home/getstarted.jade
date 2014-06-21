@@ -98,9 +98,9 @@ block content
           not be such a frequent task), is kind of annoying.
           
           Configuring your device to automatically start up BaconPi on boot is really beyond the scope of
-          this guide, but you can modify your `/etc/rc.local`, by adding the `baconpi &` command before the `exit 0` statement.
+          this guide, but you can modify your `/etc/rc.local`, by adding the `/usr/local/bin/node /usr/local/bin/baconpi &` command before the `exit 0` statement.
           
-          > Note: The `&` ensures BaconPi runs in the background.
+          > Note: The last `&` ensures BaconPi runs in the background.
           
           If you want output logged, you could write it as
           
