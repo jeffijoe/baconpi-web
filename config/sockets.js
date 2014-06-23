@@ -39,73 +39,7 @@ module.exports.sockets = {
   port: process.env.OPENSHIFT_REDIS_DB_PORT || 6379,
   prefix: 'sess:',
   db: 'baconpi-sessions',
-  // Node.js (and consequently Sails.js) apps scale horizontally.
-  // It's a powerful, efficient approach, but it involves a tiny bit of planning.
-  // At scale, you'll want to be able to copy your app onto multiple Sails.js servers
-  // and throw them behind a load balancer.
-  //
-  // One of the big challenges of scaling an application is that these sorts of clustered 
-  // deployments cannot share memory, since they are on physically different machines.
-  // On top of that, there is no guarantee that a user will "stick" with the same server between
-  // requests (whether HTTP or sockets), since the load balancer will route each request to the 
-  // Sails server with the most available resources. However that means that all room/pubsub/socket
-  // processing and shared memory has to be offloaded to a shared, remote messaging queue (usually Redis)
-  //
-  // Luckily, Socket.io (and consequently Sails.js) apps support Redis for sockets by default.
-  // To enable a remote redis pubsub server: 
-  // adapter: 'redis',
-  // host: '127.0.0.1',
-  // port: 6379,
-  // db: 'sails',
-  // pass: '<redis auth password>'
-  // Worth mentioning is that, if `adapter` config is `redis`, 
-  // but host/port is left unset, Sails will try to connect to redis 
-  // running on localhost via port 6379 
-  // `authorization`
-  //
-  // Global authorization for Socket.IO access, 
-  // this is called when the initial handshake is performed with the server.
-  // 
-  // By default (`authorization: true`), when a socket tries to connect, Sails verifies
-  // that a valid cookie was sent with the upgrade request.  If the cookie doesn't match
-  // any known user session, a new user session is created for it.
-  //
-  // However, in the case of cross-domain requests, it is possible to receive a connection
-  // upgrade request WITHOUT A COOKIE (for certain transports)
-  // In this case, there is no way to keep track of the requesting user between requests,
-  // since there is no identifying information to link him/her with a session.
-  //
-  // If you don't care about keeping track of your socket users between requests,
-  // you can bypass this cookie check by setting `authorization: false`
-  // which will disable the session for socket requests (req.session is still accessible 
-  // in each request, but it will be empty, and any changes to it will not be persisted)
-  //
-  // On the other hand, if you DO need to keep track of user sessions, 
-  // you can pass along a ?cookie query parameter to the upgrade url, 
-  // which Sails will use in the absense of a proper cookie
-  // e.g. (when connection from the client):
-  // io.connect('http://localhost:1337?cookie=smokeybear')
-  //
-  // (Un)fortunately, the user's cookie is (should!) not accessible in client-side js.
-  // Using HTTP-only cookies is crucial for your app's security.
-  // Primarily because of this situation, as well as a handful of other advanced
-  // use cases, Sails allows you to override the authorization behavior 
-  // with your own custom logic by specifying a function, e.g:
-  /*
-    authorization: function authorizeAttemptedSocketConnection(reqObj, cb) {
 
-        // Any data saved in `handshake` is available in subsequent requests
-        // from this as `req.socket.handshake.*`
-
-        //
-        // to allow the connection, call `cb(null, true)`
-        // to prevent the connection, call `cb(null, false)`
-        // to report an error, call `cb(err)`
-    }
-    
-
-    
-  */
   authorization: true,
   // Match string representing the origins that are allowed to connect to the Socket.IO server
   origins: '*:*',
