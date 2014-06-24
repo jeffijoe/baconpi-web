@@ -21,7 +21,7 @@
     "forever": "*"
   },
   "scripts": {
-    "start": "node ./node_modules/forever/bin/forever start app.js"
+    "start": "node app.js"
   },
   "main": "production.js",
   "repository": "",
