@@ -32,7 +32,7 @@ module.exports = {
    * Index
    */
   index: function(req, res) {
-    if (req.session.userId)
+    if (req.session && req.session.userId)
       return res.redirect('/agents');
     
     res.view();
