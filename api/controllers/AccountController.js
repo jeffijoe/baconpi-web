@@ -43,7 +43,9 @@ module.exports = {
    */
   doSignin: function(req, res) {
     var user;
-
+    if(! req.session)
+      return res.redirect('/account');
+    
     Q(User.findOneByEmail(req.body.email)).then(function(foundUser) {
       if (!foundUser) {
         return res.view('account/index', {
@@ -91,6 +93,10 @@ module.exports = {
    * Create the account.
    */
   doSignup: function(req, res) {
+    if(! req.session)
+      return res.view('account/signup', {
+        errors: ['Session has expired. Try again.']
+      });
     var data = req.body;
     var recaptchaData = {
       remoteip: req.connection.remoteAddress,
@@ -138,6 +144,8 @@ module.exports = {
    * Updates the details of the current account.
    */
   updateDetails: function(req, res) {
+    if(! req.session)
+      return res.send(401);
     var data = req.body;
     delete data.password; // Don't try anything fancy schmancy here.
     var currentUserId = req.session.userId;
@@ -159,6 +167,8 @@ module.exports = {
    * Change password
    */
   changePassword: function(req, res) {
+    if(! req.session)
+      return res.send(401);
     var data = req.body;
     var currentUserId = req.session.userId;
     var user;
