@@ -17,6 +17,8 @@ module.exports.session = {
   pass: process.env.OPENSHIFT_REDIS_DB_PASSWORD || 'test',
   port: process.env.OPENSHIFT_REDIS_DB_PORT || 6379,
   prefix: 'sess:',
-  ttl: 60*60*60*24*7, // 7 days
-  db: 'baconpi-sessions'
+  db: 'baconpi-sessions',
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24 * 30 // 1 = 1ms, so this should be 30 days.
+  }
 };
