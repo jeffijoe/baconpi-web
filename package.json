@@ -17,10 +17,11 @@
     "q": "~1.0.x",
     "recaptcha": "git+https://github.com/stoneburner/node-recaptcha.git",
     "markdown": "~0.5.0",
-    "forever-monitor": "~1.1.x"
+    "forever-monitor": "~1.1.x",
+    "forever": "*"
   },
   "scripts": {
-    "start": "node production.js"
+    "start": "node ./node_modules/forever/bin/forever start app.js"
   },
   "main": "production.js",
   "repository": "",
