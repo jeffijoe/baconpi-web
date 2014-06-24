@@ -39,7 +39,6 @@ module.exports.sockets = {
   port: process.env.OPENSHIFT_REDIS_DB_PORT || 6379,
   prefix: 'sess:',
   db: 'baconpi-sessions',
-  ttl: 60,
   authorization: true,
   // Match string representing the origins that are allowed to connect to the Socket.IO server
   origins: '*:*',
