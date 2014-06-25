@@ -1,7 +1,7 @@
 {
   "name": "BaconPi-Web",
   "private": true,
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Web Frontend for BaconPi - https://baconpi-jeffijoe.rhcloud.com.",
   "dependencies": {
     "sails": "0.9.x",
@@ -23,7 +23,7 @@
   "scripts": {
     "start": "node app.js"
   },
-  "main": "production.js",
+  "main": "app.js",
   "repository": "",
   "author": "Jeff Hansen",
   "license": ""
