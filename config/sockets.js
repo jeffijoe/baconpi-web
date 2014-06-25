@@ -49,10 +49,10 @@ module.exports.sockets = {
   'close timeout': 60,
   // The # of seconds between heartbeats sent from the client to the server
   // This value is sent to the client after a successful handshake.
-  'heartbeat timeout': 25,
+  'heartbeat timeout': 60,
   // The max # of seconds to wait for an expcted heartbeat before declaring the pipe broken
   // This number should be less than the `heartbeat timeout`
-  'heartbeat interval': 8,
+  'heartbeat interval': 25,
   // The maximum duration of one HTTP poll-
   // if it exceeds this limit it will be closed.
   'polling duration': 20,
