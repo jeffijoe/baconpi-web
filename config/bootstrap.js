@@ -7,9 +7,10 @@
  * For more information on bootstrapping your app, check out:
  * http://sailsjs.org/#documentation
  */
+'use strict';
 var agentSocketNsSetup = require("../lib/agent_socket_ns");
 module.exports.bootstrap = function(cb) {
-    agentSocketNsSetup(sails.io);
+    agentSocketNsSetup(sails);
     
     cb();
 };

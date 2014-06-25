@@ -22,7 +22,7 @@ module.exports = {
   //
   log: {
     level: 'info',
-    filePath: "app.log"
+    filePath: 'app.log',
+    timestamp: true
   }
-
 };

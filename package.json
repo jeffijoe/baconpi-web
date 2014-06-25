@@ -1,7 +1,7 @@
 {
   "name": "BaconPi-Web",
   "private": true,
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Web Frontend for BaconPi - https://baconpi-jeffijoe.rhcloud.com.",
   "dependencies": {
     "sails": "0.9.x",
