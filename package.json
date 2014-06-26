@@ -5,20 +5,18 @@
   "description": "Web Frontend for BaconPi - https://baconpi-jeffijoe.rhcloud.com.",
   "dependencies": {
     "sails": "0.9.16",
-    "grunt": "0.4.x",
-    "sails-disk": "~0.9.x",
-    "optimist": "0.3.x",
-    "jade": "~1.3.x",
-    "lodash": "~2.4.x",
-    "grunt-contrib-requirejs": "~0.4.x",
-    "bcrypt-nodejs": "0.0.x",
-    "sails-mongo": "~0.9.x",
-    "grunt-contrib-jade": "~0.11.x",
-    "q": "~1.0.x",
+    "grunt": "0.4.5",
+    "sails-disk": "~0.9.3",
+    "optimist": "0.6.1",
+    "jade": "~1.3.1",
+    "lodash": "~2.4.1",
+    "grunt-contrib-requirejs": "~0.4.4",
+    "bcrypt-nodejs": "0.0.3",
+    "sails-mongo": "~0.9.8",
+    "grunt-contrib-jade": "~0.12.0",
+    "q": "~1.0.1",
     "recaptcha": "git+https://github.com/stoneburner/node-recaptcha.git",
-    "markdown": "~0.5.0",
-    "forever-monitor": "~1.1.x",
-    "forever": "*"
+    "markdown": "~0.5.0"
   },
   "scripts": {
     "start": "node app.js"
