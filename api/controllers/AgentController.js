@@ -19,7 +19,17 @@
 var Q = require('q');
 
 module.exports = {
-    
+  
+  find: function (req, res) {
+    AccessService.check(Agent, req.session.userId, req.param('id')).then(function (result) {
+      if(result === false)
+        return res.forbidden();
+        res.json(result);
+    }).fail(function (err) {
+      res.serverError(err);
+    });
+  },
+  
   update: function (req, res) {
     var data = _.clone(req.body);
     AccessService.check(Agent, req.session.userId, req.param('id')).then(function (result) {

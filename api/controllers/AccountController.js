@@ -57,7 +57,8 @@ module.exports = {
     }).then(function(match) {
       if (match !== true) {
         return res.view('account/index', {
-          errors: ['Password was incorrect.']
+          errors: ['Password was incorrect.'],
+          email: req.body.email
         });
       }
       req.session.userId = user.id;

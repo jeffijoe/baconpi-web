@@ -56,6 +56,9 @@ define([
       });
       return model.fetch().then(_.bind(function() {
         return model;
+      }, this), _.bind(function (xhr) {
+        if(model.isNew)
+          this.remove(model);
       }, this));
     }
   });

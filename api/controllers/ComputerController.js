@@ -14,60 +14,63 @@
  *
  * @docs        :: http://sailsjs.org/#!documentation/controllers
  */
-/*global Computer, AgentService*/
+/*global Computer, AgentService, AccessService, Agent*/
 'use strict';
 var _ = require('lodash'),
   Q = require('q');
-  
-var ComputerController = {
-  /**
-   * Scoped find for computers being managed by the specified agent.
-   */
-  findComputersByAgentId: function(req, res) {
-    Computer.find().where({
-      agentId: req.param('agentId')
-    }).exec(function(err, computers) {
-      if (err) throw err;
-      res.json(computers);
+
+
+/**
+ * Helper method for creating a computer, regardless of route.
+ */
+function _create(req, res, agentId) {
+  AccessService.check(Agent, req.session.userId, agentId).then(function(agent) {
+    if (agent === false) {
+      res.forbidden();
+      throw false;
+    }
+
+    if (!agent) {
+      res.notFound('Agent not found.');
+      throw false;
+    }
+    var computer = _.extend(req.body, {
+      agentId: agentId
     });
-  },
+    return Q(Computer.create(computer));
+  }).then(function(computer) {
+    return res.json(computer);
+  }).fail(function(err) {
+    if(err === false) 
+      return;
+    if (err.ValidationError)
+      return res.badRequest(err);
+    res.serverError(err);
+    throw err;
+  }).done();
+}
 
-  /**
-   * Creates a new computer, and assigns its agent.
-   */
-  createScopedComputer: function(req, res) {
-    console.log('enter');
-    var agentId = req.param('agentId');
-    AgentService.getAgentById(agentId).then(function(agent) {
-      if (!agent) return res.notFound('Agent not found.');
-      var computer = _.extend(req.body, {
-        agentId: agentId
-      });
-      return Q(Computer.create(computer));
-    }).then(function(computer) {
-      console.log('saved');
-      return res.json(computer);
-    }).fail(function(err) {
-      if (err.ValidationError)
-        return res.badRequest(err);
-      res.serverError(err);
-      throw err;
-    }).done();
-  },
-
-  /**
-   * Sets the computers agent, as well as saving it.
-   */
-  setComputerAgent: function(req, res) {
+/**
+ * Helper method for updating a computer, regardless of route.
+ */
+function _update(req, res, agentId) {
     var id = req.param('id');
-    Q(Computer.findOne(id)).then(function(computer) {
-      if (!computer) return res.notFound();
-      var agentId = req.param('agentId');
+    AccessService.check(Computer, req.session.userId, id).then(function(computer) {
+      if (computer === false) {
+        res.forbidden();
+        throw false;
+      }
+
+      if (!computer) {
+        res.notFound();
+        throw false;
+      }
+      
       // Returns a promise.
       return AgentService.getAgentById(agentId).then(function(agent) {
         if (!agent)
           return res.notFound('Agent not found.');
-
+        delete req.body.userId;
         _.extend(computer, req.body, {
           agentId: agentId
         });
@@ -76,11 +79,61 @@ var ComputerController = {
     }).then(function(computer) {
       res.json(computer);
     }).fail(function(err) {
+      if (err === false)
+        return;
+
       if (err.ValidationError)
         return res.badRequest(err);
       res.serverError(err);
       throw err;
     }).done();
+}
+
+
+var ComputerController = {
+  /**
+   * Scoped find for computers being managed by the specified agent.
+   */
+  findComputersByAgentId: function(req, res) {
+    Computer.find().where({
+      agentId: req.param('agentId'),
+      userId: req.session.userId
+    }).exec(function(err, computers) {
+      if (err) throw err;
+      res.json(computers);
+    });
+  },
+
+  /**
+   * Create
+   */
+  create: function(req, res) {
+    var agentId = req.body.agentId;
+    _create(req, res, agentId);
+  },
+
+  /**
+   * Creates a new computer, and assigns its agent.
+   */
+  createScopedComputer: function(req, res) {
+    var agentId = req.param('agentId');
+    _create(req, res, agentId);
+  },
+  
+  /**
+   * Update
+   */
+  update: function (req, res) {
+    var agentId = req.body.agentId;
+    _update(req, res, agentId);
+  },
+  
+  /**
+   * Sets the computers agent, as well as saving it.
+   */
+  scopedUpdate: function(req, res) {
+    var agentId = req.param('agentId');
+    _update(req, res, agentId);
   },
   /**
    * Overrides for the settings in `config/controllers.js`

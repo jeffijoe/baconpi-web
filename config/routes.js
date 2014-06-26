@@ -72,7 +72,7 @@ module.exports.routes = {
   
   // API routes
   'POST /api/agent/:agentId/computers': 'Computer.createScopedComputer',
-  'PUT /api/agent/:agentId/computers/:id': 'Computer.setComputerAgent',
+  'PUT /api/agent/:agentId/computers/:id': 'Computer.scopedUpdate',
   '/api/agent/:agentId/computers': 'Computer.findComputersByAgentId',
 
   /*
