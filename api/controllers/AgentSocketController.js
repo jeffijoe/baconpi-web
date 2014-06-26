@@ -36,7 +36,7 @@ module.exports = {
         extra: req.query.extra
       });
       
-      res.send(200, 'Clients: '+result.join(','));
+      res.send(200, 'Connected Clients: '+result.join(','));
     },
     
     _config: {}

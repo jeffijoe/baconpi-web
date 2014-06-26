@@ -4,7 +4,7 @@
   "version": "0.1.3",
   "description": "Web Frontend for BaconPi - https://baconpi-jeffijoe.rhcloud.com.",
   "dependencies": {
-    "sails": "0.9.x",
+    "sails": "0.9.16",
     "grunt": "0.4.x",
     "sails-disk": "~0.9.x",
     "optimist": "0.3.x",

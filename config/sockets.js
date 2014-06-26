@@ -8,6 +8,7 @@
  * http://sailsjs.org/#documentation
  */
 /*global process*/
+'use strict';
 module.exports.sockets = {
   // This custom onConnect function will be run each time AFTER a new socket connects
   // (To control whether a socket is allowed to connect, check out `authorization` config.)
@@ -39,7 +40,7 @@ module.exports.sockets = {
   port: process.env.OPENSHIFT_REDIS_DB_PORT || 6379,
   prefix: 'sess:',
   db: 'baconpi-sessions',
-  authorization: true,
+  authorization: false,
   // Match string representing the origins that are allowed to connect to the Socket.IO server
   origins: '*:*',
   // Should we use heartbeats to check the health of Socket.IO connections?
