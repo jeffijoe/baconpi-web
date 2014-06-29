@@ -40,7 +40,7 @@ module.exports.sockets = {
   port: process.env.OPENSHIFT_REDIS_DB_PORT || 6379,
   prefix: 'sess:',
   db: 'baconpi-sessions',
-  authorization: false,
+  authorization: true,
   // Match string representing the origins that are allowed to connect to the Socket.IO server
   origins: '*:*',
   // Should we use heartbeats to check the health of Socket.IO connections?
