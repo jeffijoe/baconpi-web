@@ -28,6 +28,13 @@ define([
     onRender: function() {
       this._renderAgents();
       this._renderUserMenu();
+      this._handleStandaloneMode();
+    },
+    _handleStandaloneMode: function () {
+      // This is too cool.
+      if(window.navigator.standalone) {
+        this.$el.find('.main.menu').addClass('standalone');
+      }
     },
     _renderUserMenu: function () {
       var userMenuView = this.userMenuView = new NavbarUserView({

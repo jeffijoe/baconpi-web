@@ -4,6 +4,8 @@ extends ../app_layout
 block head
   title BaconPi
   meta(name="apple-mobile-web-app-capable" content="yes")
+  meta(name="apple-mobile-web-app-status-bar-style" content="black-translucent")
+  meta(name="robots" content="noindex, nofollow")
   
 block body
   #chrome
@@ -21,6 +23,7 @@ block body
     #notifications.ui.page.dimmer
 
   script(type="text/javascript").
+    
     window.bootstrapData = function(App) {
       // Called by App so we can set our initial data on page load.
       require(['collections/agents_collection', 'models/user_model'], function() {
