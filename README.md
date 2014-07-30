@@ -2,7 +2,7 @@
 
 This is the web frontend + backend for [BaconPi](https://baconpi-jeffijoe.rhcloud.com).
 
-For the Raspberry Pi client, see the (BaconPi Node Agent)[http://github.com/jeffijoe/baconpi-node-agent] repository.
+For the Raspberry Pi client, see the [BaconPi Node Agent](http://github.com/jeffijoe/baconpi-node-agent)repository.
 
 The entire BaconPi project was for learning the below tech stack.
 
