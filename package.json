@@ -22,7 +22,7 @@
     "start": "node app.js"
   },
   "main": "app.js",
-  "repository": "",
+  "repository": "https://github.com/jeffijoe/baconpi-web",
   "author": "Jeff Hansen",
   "license": ""
 }
